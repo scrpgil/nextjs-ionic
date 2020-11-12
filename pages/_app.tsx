@@ -20,6 +20,22 @@ import { JSX as LocalJSX } from "@ionic/core";
 import { JSX as IoniconsJSX } from "ionicons";
 import { HTMLAttributes } from "react";
 
+import { createGlobalStyle, ThemeProvider } from "styled-components";
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+`;
+
+const theme = {
+  colors: {
+    primary: "#0070f3",
+  },
+};
+
 type ToReact<T> = {
   [P in keyof T]?: T[P] &
     Omit<HTMLAttributes<Element>, "className"> & {
@@ -44,9 +60,12 @@ function MyApp({ Component, pageProps }) {
     ionDefineCustomElements(window);
   });
   return (
-    <ion-app>
-      <Component {...pageProps} />
-    </ion-app>
+    <>
+      <GlobalStyle />
+      <ion-app>
+        <Component {...pageProps} />
+      </ion-app>
+    </>
   );
 }
 
